@@ -18,13 +18,13 @@ import ActivityLogConfirmDialog from '../activity-log-confirm-dialog';
 import ActivityLogCredentialsNotice from '../activity-log-credentials-notice';
 import ActivityLogDay from '../activity-log-day';
 import ActivityLogDayPlaceholder from '../activity-log-day/placeholder';
+import Banner from 'components/banner';
 import DatePicker from 'my-sites/stats/stats-date-picker';
 import EmptyContent from 'components/empty-content';
 import ErrorBanner from '../activity-log-banner/error-banner';
 import JetpackColophon from 'components/jetpack-colophon';
 import Main from 'components/main';
 import ProgressBanner from '../activity-log-banner/progress-banner';
-import ProvisioningNotice from './provisioning-notice';
 import QueryActivityLog from 'components/data/query-activity-log';
 import QueryJetpackCredentials from 'components/data/query-jetpack-credentials';
 import QueryRewindState from 'components/data/query-rewind-state';
@@ -607,7 +607,18 @@ class ActivityLog extends Component {
 				<SidebarNavigation />
 				<StatsNavigation selectedItem={ 'activity' } siteId={ siteId } slug={ slug } />
 				{ 'awaitingCredentials' === rewindState.state && <ActivityLogCredentialsNotice /> }
-				{ 'provisioning' === rewindState.state && <ProvisioningNotice /> }
+				{ 'provisioning' === rewindState.state && (
+					<Banner
+						description={ translate(
+							"We're configuring your site. " +
+								"There's nothing more you need to do right now. " +
+								'Check back soon to see your updated Activity Log ' +
+								'or restore backups.'
+						) }
+						icon="history"
+						disableHref
+					/>
+				) }
 				{ this.renderErrorMessage() }
 				{ hasFirstBackup && this.renderMonthNavigation() }
 				{ this.renderActionProgress() }
